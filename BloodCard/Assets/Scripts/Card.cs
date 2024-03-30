@@ -4,15 +4,16 @@ using UnityEngine;
 
 public class Card : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField]
+    Sprite cardImage;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    [TextArea]
+    [SerializeField]
+    string cardText;
+
+    public Sprite GetCardImage()
+    { return cardImage; }
+
+    public string GetCardText()
+    { return cardText; }
 }

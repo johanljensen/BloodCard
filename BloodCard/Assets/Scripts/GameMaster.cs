@@ -2,15 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+public class GameMaster : MonoBehaviour
 {
-    private static GameManager Instance;
+    private static GameMaster Instance;
 
-    public static GameManager GetInstance()
+    public static GameMaster GetInstance()
     {
         if (Instance == null)
         {
-            Instance = FindAnyObjectByType<GameManager>();
+            Instance = FindObjectOfType<GameMaster>();
         }
         return Instance;
     }

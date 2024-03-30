@@ -11,7 +11,7 @@ public class GameBoard : MonoBehaviour
     {
         if(Instance == null)
         {
-            Instance = FindAnyObjectByType<GameBoard>();
+            Instance = FindObjectOfType<GameBoard>();
         }
         return Instance;
     }
