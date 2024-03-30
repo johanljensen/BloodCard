@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class BoardTile : MonoBehaviour
 {
+    public int tileX;
+    public int tileY;
+
     [SerializeField]
     int playerClaim;
 
@@ -12,5 +15,18 @@ public class BoardTile : MonoBehaviour
 
 
     [SerializeField]
-    CardUnit myUnit;
+    Unit myUnit;
+
+
+    public void AddClaim(bool playerAllegiance)
+    {
+        if(playerAllegiance)
+        {
+            playerClaim++;
+        }
+        else
+        {
+            opponentClaim++;
+        }
+    }
 }
