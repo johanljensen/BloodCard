@@ -41,6 +41,7 @@ public class MoveHandUp : MonoBehaviour
             yield return null;
         }
 
+        checkingForMouseExit = false;
         cardHolder.localPosition = new Vector3(transform.localPosition.x, hiddenYpos, transform.localPosition.z);
         transform.localPosition = new Vector3(transform.localPosition.x, hiddenYpos, transform.localPosition.z);
     }
