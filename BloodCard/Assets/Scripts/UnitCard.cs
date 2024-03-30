@@ -1,9 +1,56 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class UnitCard : Card
 {
+    int tileX;
+    int tileY;
+
+    bool isplayerFriendly;
+
     [SerializeField]
-    Unit thisCardsUnit;
+    bool hasAbility;
+
+
+    [SerializeField]
+    int unitPower;
+
+    [Serializable]
+    class TileOffset
+    {
+        public int xOffset;
+        public int yOffset;
+    }
+
+    [SerializeField]
+    List<TileOffset> claimTiles;
+
+    [SerializeField]
+    List<TileOffset> effectTiles;
+
+
+    public void PlayToTile(Transform tileTransform, int x, int y)
+    {
+        transform.parent = tileTransform;
+        transform.position = tileTransform.position;
+        transform.rotation = tileTransform.rotation;
+
+        tileX = x;
+        tileY = y;
+
+        ClaimTiles();
+        PlayEffect();
+    }
+
+    public void ClaimTiles()
+    {
+        foreach (var claimTile in claimTiles)
+        {
+            GameBoard.GetInstance().AddClaimToTile(tileX, tileY, claimTile.xOffset, claimTile.yOffset, isplayerFriendly);
+        }
+    }
+
+    public virtual void PlayEffect() { } //To be overwritten by units that have effects
 }

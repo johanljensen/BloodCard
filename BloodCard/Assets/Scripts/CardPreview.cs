@@ -13,7 +13,6 @@ public class CardPreview : MonoBehaviour
         if (Instance == null)
         {
             Instance = FindObjectOfType<CardPreview>(includeInactive: true);
-            Debug.Log(Instance != null);
         }
         
         return Instance;

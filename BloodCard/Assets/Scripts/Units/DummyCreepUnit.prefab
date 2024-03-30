@@ -129,6 +129,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26955df65e2a5024497c9a20931b7403, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cardImage: {fileID: 0}
+  cardText: Test dummy unit card
   hasAbility: 0
   claimCost: 1
   unitPower: 2

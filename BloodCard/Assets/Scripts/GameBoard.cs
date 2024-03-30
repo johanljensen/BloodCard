@@ -16,11 +16,15 @@ public class GameBoard : MonoBehaviour
         return Instance;
     }
 
+    [SerializeField]
     List<BoardTile> boardTiles;
 
-    private void Start()
+    private void OnValidate()
     {
-        boardTiles = GetComponentsInChildren<BoardTile>().ToList();
+        if (boardTiles.Count == 0)
+        {
+            boardTiles = GetComponentsInChildren<BoardTile>().ToList();
+        }
     }
 
     public void AddClaimToTile(int tileFromX, int tileFromY, int xOffset, int yOffset, bool playerAllegiance)
@@ -35,5 +39,10 @@ public class GameBoard : MonoBehaviour
                 tile.AddClaim(playerAllegiance);
             }
         }
+    }
+
+    public void TestPlayableTiles(Card cardBeingPlayed)
+    {
+
     }
 }

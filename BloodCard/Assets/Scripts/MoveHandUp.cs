@@ -36,7 +36,7 @@ public class MoveHandUp : MonoBehaviour
     {
         checkingForMouseExit = true;
 
-        while(Input.mousePosition.y < Screen.height * 0.3)
+        while(Input.mousePosition.y < Screen.height * 0.3 && GameMaster.GetInstance().GetGameState() != GameMaster.GameState.HoldingCard)
         {
             yield return null;
         }

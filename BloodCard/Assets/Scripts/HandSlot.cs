@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class HandSlot : MonoBehaviour
@@ -34,5 +35,22 @@ public class HandSlot : MonoBehaviour
     private void OnMouseExit()
     {
         CardPreview.GetInstance().ClearPreview();
+    }
+
+    private void OnMouseDown()
+    {
+        if(cardInSlot != null)
+        {
+            ToPlaySlot.GetInstance().SetCardToPlay(cardInSlot);
+        }
+        else
+        {
+            Card returnCard = ToPlaySlot.GetInstance().PutCardBack(this);
+            cardInSlot = returnCard;
+
+            cardInSlot.transform.parent = transform;
+            cardInSlot.transform.position = transform.position;
+            cardInSlot.transform.localScale = Vector3.one;
+        }
     }
 }
