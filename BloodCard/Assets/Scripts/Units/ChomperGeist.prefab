@@ -218,13 +218,13 @@ MonoBehaviour:
   cardText: 'Infuse (10):
 
     Destroy the enemy unit in front of this when played'
-  claimCost: 0
+  claimCost: 2
   infusionCard: 1
   infusionMax: 10
   infusedAmount: 0
   infuseImage: {fileID: 454923931221572008}
   hasAbility: 0
-  unitPower: 0
+  unitPower: 2
   claimTiles:
   - xOffset: 2
     yOffset: 0
