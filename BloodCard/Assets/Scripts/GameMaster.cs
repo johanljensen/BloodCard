@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameMaster : MonoBehaviour
 {
@@ -21,6 +22,27 @@ public class GameMaster : MonoBehaviour
         PlayerChoosing,
         HoldingCard,
         OppenentPlaying
+    }
+
+    public bool GameOver = false;
+    public void GameGoodEnd()
+    {
+        if(!GameOver)
+        {
+            GameOver = true;
+            SceneManager.LoadScene("GoodEnding");
+        }
+    }
+
+    public void GameBadEnd()
+    {
+        Debug.Log("Lost?");
+        if (!GameOver)
+        {
+            Debug.Log("Yes lost");
+            GameOver = true;
+            SceneManager.LoadScene("BadEnding");
+        }
     }
 
     private GameState currentState;

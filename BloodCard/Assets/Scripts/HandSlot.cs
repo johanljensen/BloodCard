@@ -20,6 +20,10 @@ public class HandSlot : MonoBehaviour
     public void AddCardToSlot(Card card)
     {
         cardInSlot = card;
+
+        cardInSlot.transform.parent = transform;
+        cardInSlot.transform.position = transform.position;
+        cardInSlot.transform.localScale = Vector3.one;
     }
 
     public void RemoveCardFromSlot()
@@ -41,16 +45,12 @@ public class HandSlot : MonoBehaviour
     {
         if(cardInSlot != null)
         {
-            ToPlaySlot.GetInstance().SetCardToPlay(cardInSlot);
+            ToPlaySlot.GetInstance().SetCardToPlay(cardInSlot, this);
+            cardInSlot = null;
         }
         else
         {
-            Card returnCard = ToPlaySlot.GetInstance().PutCardBack(this);
-            cardInSlot = returnCard;
-
-            cardInSlot.transform.parent = transform;
-            cardInSlot.transform.position = transform.position;
-            cardInSlot.transform.localScale = Vector3.one;
+            ToPlaySlot.GetInstance().PutCardBack(this);
         }
     }
 }

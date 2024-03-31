@@ -19,6 +19,8 @@ public class GameBoard : MonoBehaviour
     [SerializeField]
     List<BoardTile> boardTiles;
 
+
+
     private void OnValidate()
     {
         if (boardTiles.Count == 0)
@@ -44,5 +46,19 @@ public class GameBoard : MonoBehaviour
     public void TestPlayableTiles(Card cardBeingPlayed)
     {
 
+    }
+
+    public void DestroyUnitAtTile(int tileFromX, int tileFromY, int xOffset, int yOffset)
+    {
+        int targetX = tileFromX + xOffset;
+        int targetY = tileFromY + yOffset;
+
+        foreach (BoardTile tile in boardTiles)
+        {
+            if (targetX == tile.tileX && targetY == tile.tileY)
+            {
+                tile.DestroyUnit();
+            }
+        }
     }
 }

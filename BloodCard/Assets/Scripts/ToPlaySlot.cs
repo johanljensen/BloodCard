@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ToPlaySlot : MonoBehaviour
 {
@@ -18,23 +19,54 @@ public class ToPlaySlot : MonoBehaviour
     [SerializeField]
     Card cardBeingPlayed;
 
+    [SerializeField]
+    GameObject infuseText;
 
-    public void SetCardToPlay(Card card)
+    private void Awake()
     {
+        infuseText.gameObject.SetActive(false);
+    }
+
+    public void SetCardToPlay(Card card, HandSlot slot)
+    {
+        if(cardBeingPlayed != null)
+        {
+            PutCardBack(slot);
+        }
+
         cardBeingPlayed = card;
 
         card.transform.parent = transform;
         card.transform.position = transform.position;
         card.transform.localScale = Vector3.one;
 
+        if(cardBeingPlayed.CanBeInfused())
+        {
+            infuseText.SetActive(true);
+        }
+
         GameBoard.GetInstance().TestPlayableTiles(card);
     }
 
-    public Card PutCardBack(HandSlot handSlot)
+    public Card GetCardBeingPlayed() 
     {
-        Card cardToReturn = cardBeingPlayed;
+        return cardBeingPlayed; 
+    }
+
+    public void PutCardBack(HandSlot handSlot)
+    {
+        if(cardBeingPlayed== null) { return; }
+
+        cardBeingPlayed.ResetInfuse();
+        infuseText.SetActive(false);
+        handSlot.AddCardToSlot(cardBeingPlayed);
         cardBeingPlayed = null;
-        return cardToReturn;
+    }
+
+    public void RemoveCard()
+    {
+        cardBeingPlayed = null;
+        infuseText.SetActive(false);
     }
 
     private void OnMouseDown()
@@ -44,6 +76,11 @@ public class ToPlaySlot : MonoBehaviour
             if(cardBeingPlayed.CanBeInfused())
             {
                 cardBeingPlayed.Infuse();
+
+                if(!cardBeingPlayed.CanBeInfused())
+                {
+                    infuseText.SetActive(false);
+                }
             }
         }
     }

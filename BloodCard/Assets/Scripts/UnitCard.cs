@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class UnitCard : Card
 {
-    int tileX;
-    int tileY;
+    protected int tileX;
+    protected int tileY;
 
     bool isplayerFriendly;
 
@@ -34,8 +34,10 @@ public class UnitCard : Card
     public void PlayToTile(Transform tileTransform, int x, int y)
     {
         transform.parent = tileTransform;
-        transform.position = tileTransform.position;
+        transform.position = tileTransform.position + new Vector3(0, .1f, 0);
         transform.rotation = tileTransform.rotation;
+        transform.Rotate(90, 0, 0);
+        transform.localScale = new Vector3(4, 4, 1);
 
         tileX = x;
         tileY = y;
@@ -48,9 +50,18 @@ public class UnitCard : Card
     {
         foreach (var claimTile in claimTiles)
         {
-            GameBoard.GetInstance().AddClaimToTile(tileX, tileY, claimTile.xOffset, claimTile.yOffset, isplayerFriendly);
+            GameBoard.GetInstance().AddClaimToTile(tileX, tileY, claimTile.xOffset, claimTile.yOffset, true);
         }
     }
 
     public virtual void PlayEffect() { } //To be overwritten by units that have effects
+
+    public override bool CanPlayOnTile(BoardTile tile, UnitCard tileUnit)
+    {
+        if (tile.GetClaim(true) >= claimCost && tileUnit == null)
+        {
+            return true;
+        }
+        return false;
+    }
 }

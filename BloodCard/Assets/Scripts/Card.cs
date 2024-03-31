@@ -6,14 +6,14 @@ using UnityEngine;
 public class Card : MonoBehaviour
 {
     [SerializeField]
-    Sprite cardImage;
+    SpriteRenderer cardImage;
 
     [TextArea]
     [SerializeField]
     string cardText;
 
     [SerializeField]
-    int claimCost;
+    protected int claimCost;
 
     [Space(10)]
     [Header("Infusion")]
@@ -21,10 +21,13 @@ public class Card : MonoBehaviour
     bool infusionCard;
 
     [SerializeField]
-    int infusionMax;
+    protected int infusionMax;
 
     [SerializeField]
-    int infusedAmount;
+    protected int infusedAmount;
+
+    [SerializeField]
+    GameObject infuseImage;
 
     public bool CanBeInfused()
     {
@@ -33,19 +36,38 @@ public class Card : MonoBehaviour
     public void Infuse()
     {
         infusedAmount++;
+        ShowInfused(true);
+    }
+
+    public void ResetInfuse()
+    {
+        infusedAmount = 0;
+        ShowInfused(false);
+    }
+
+    public void ShowInfused(bool show)
+    {
+        infuseImage.SetActive(show);
     }
 
     private void Awake()
     {
-        if(cardImage == null)
-        {
-            cardImage = GetComponentInChildren<SpriteRenderer>().sprite;
-        }
+        infuseImage.SetActive(false);
     }
 
     public Sprite GetCardImage()
-    { return cardImage; }
+    { return cardImage.sprite; }
 
     public string GetCardText()
     { return cardText; }
+
+    public virtual bool CanPlayOnTile(BoardTile tile, UnitCard tileUnit)
+    {
+        return tile.GetClaim(true) >= claimCost;
+    }
+
+    public virtual void DestroyThisCard()
+    {
+        Destroy(gameObject);
+    }
 }
